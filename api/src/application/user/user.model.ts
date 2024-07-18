@@ -156,6 +156,12 @@ class UserModelClass extends BaseModelClass {
   @api({ httpMethod: "GET", clients: ["swr"] })
   async me(context: Context): Promise<UserSubsetSS | null> {
     const user = context.user as UserSubsetSS | null;
+    if (user) {
+      await context.passport.login(user);
+    } else {
+      context.passport.logout();
+    }
+
     return user;
   }
 

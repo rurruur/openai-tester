@@ -21,8 +21,9 @@ export const UserSearchFieldLabel = { id: "ID" };
 export const ChatBaseSchema = z.object({
   id: z.number().int().nonnegative(),
   created_at: SQLDateTimeString,
-  user_id: z.number().int(),
+  from_id: z.number().int(),
   content: z.string().max(65535),
+  to_id: z.number().int(),
 });
 export type ChatBaseSchema = z.infer<typeof ChatBaseSchema>;
 

@@ -5,10 +5,12 @@ import {
   NotFoundException,
   BadRequestException,
   api,
+  Context,
 } from "sonamu";
 import { ChatSubsetKey, ChatSubsetMapping } from "../sonamu.generated";
 import { chatSubsetQueries } from "../sonamu.generated.sso";
 import { ChatListParams, ChatSaveParams } from "./chat.types";
+import openai from "../openai";
 
 /*
   Chat Model
@@ -130,6 +132,40 @@ class ChatModelClass extends BaseModelClass {
     });
 
     return ids.length;
+  }
+
+  @api({ httpMethod: "POST" })
+  async chat(content: string, { user }: Context): Promise<string> {
+    if (!user) {
+      throw new BadRequestException("로그인이 필요합니다.");
+    }
+
+    await this.save([
+      {
+        content,
+        to_id: 2, // ai
+        from_id: user.id,
+      },
+    ]);
+
+    const res = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          role: "user",
+          content,
+        },
+      ],
+    });
+    await this.save([
+      {
+        content: res.choices[0].message.content ?? "",
+        to_id: user.id,
+        from_id: 2, // ai
+      },
+    ]);
+
+    return res.choices[0].message.content ?? "";
   }
 }
 

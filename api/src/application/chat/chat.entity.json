@@ -12,15 +12,24 @@
     },
     {
       "type": "relation",
-      "name": "user",
+      "name": "from",
       "with": "User",
       "nullable": false,
-      "desc": "USER",
+      "desc": "FROM",
       "relationType": "BelongsToOne",
       "onUpdate": "CASCADE",
       "onDelete": "CASCADE"
     },
-    { "name": "content", "desc": "내용", "type": "text", "textType": "text" }
+    { "name": "content", "desc": "내용", "type": "text", "textType": "text" },
+    {
+      "type": "relation",
+      "name": "to",
+      "with": "User",
+      "desc": "TO",
+      "relationType": "BelongsToOne",
+      "onUpdate": "CASCADE",
+      "onDelete": "CASCADE"
+    }
   ],
   "indexes": [],
   "subsets": { "A": ["id", "created_at"] },

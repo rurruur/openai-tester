@@ -72,4 +72,12 @@ export namespace ChatService {
       data: { ids },
     });
   }
+
+  export async function chat(content: string): Promise<string> {
+    return fetch({
+      method: "POST",
+      url: `/api/chat/chat`,
+      data: { content },
+    });
+  }
 }

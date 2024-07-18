@@ -1,15 +1,15 @@
 [
   {
     "path": "/dist/application/chat/chat.model.js",
-    "checksum": "d3bf9a1a3a84bf9cc97d08ade8cfe3667be57153"
+    "checksum": "830d1f4b8164dcd71ac0b37310a37e1996bb2852"
   },
   {
     "path": "/dist/application/user/user.model.js",
-    "checksum": "17d2eeac2e3118d44d625b3a50230614766a0a67"
+    "checksum": "457453d7166ca3e72c5b9cb3d22ec163f89a2b43"
   },
   {
     "path": "/src/application/chat/chat.entity.json",
-    "checksum": "1b230aae27fe8935b6556f0d7dc08e1a5d2b782d"
+    "checksum": "014c7ea931ae7b34d2337b8635db80b453e94aa4"
   },
   {
     "path": "/src/application/chat/chat.types.ts",
@@ -17,7 +17,7 @@
   },
   {
     "path": "/src/application/sonamu.generated.ts",
-    "checksum": "1acd6333e8a8a4d7e4facfe5fcfce799f5116d84"
+    "checksum": "607fa08aa3220f9543cf5b7103e515b55c924dc4"
   },
   {
     "path": "/src/application/user/user.entity.json",

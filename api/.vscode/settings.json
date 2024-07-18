@@ -7,6 +7,10 @@
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "rest-client.environmentVariables": {
+    "local": {
+      "baseUrl": "http://localhost:16000",
+      "session": "UBaaPsGQSFqFz5yNw%2BIhzs%2Bx4Uiu%2BRuLqyB%2B5qLCKx2pjKQAvEUNrqKcbXMgAVuTMGIpFSwS9Eg3qe9LSByT4%2BWcAh4V2w1Fqej6G12F8Vp4bZKb0rDR%2BYsXE%2BRSdkJHo9zM7NJAF2oAeTjMYQ%3D%3D%3BlxopoZUMwtG2Lktjn1h4vwHSyQ6tE0GJ"
+    },
     "$shared": {
       "baseUrl": "http://localhost:16000"
     }

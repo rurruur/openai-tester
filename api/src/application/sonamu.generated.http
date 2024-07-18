@@ -25,7 +25,13 @@ Content-Type: application/json
 
 {
   "spa": [
-    { "id": 0, "created_at": "2000-01-01", "user_id": 0, "content": "CONTENT" }
+    {
+      "id": 0,
+      "created_at": "2000-01-01",
+      "from_id": 0,
+      "content": "CONTENT",
+      "to_id": 0
+    }
   ]
 }
 
@@ -36,6 +42,14 @@ POST {{baseUrl}}/api/chat/del
 Content-Type: application/json
 
 { "ids": [0] }
+
+
+###
+
+POST {{baseUrl}}/api/chat/chat
+Content-Type: application/json
+
+{ "content": "CONTENT" }
 
 
 ###
@@ -80,7 +94,7 @@ Content-Type: application/json
 POST {{baseUrl}}/api/user/join
 Content-Type: application/json
 
-{ "params": { "name": "김나경" } }
+{ "params": { "name": "NAME" } }
 
 
 ###
