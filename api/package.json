@@ -11,6 +11,8 @@
     "sonamu": "sonamu"
   },
   "dependencies": {
+    "@fastify/passport": "^2.5.0",
+    "@fastify/secure-session": "^7.5.1",
     "dotenv": "^16.4.5",
     "fastify": "^4.26.2",
     "fastify-qs": "^4.0.2",

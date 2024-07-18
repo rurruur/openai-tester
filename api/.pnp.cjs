@@ -27,6 +27,8 @@ const RAW_RUNTIME_STATE =
       [null, {\
         "packageLocation": "./",\
         "packageDependencies": [\
+          ["@fastify/passport", "npm:2.5.0"],\
+          ["@fastify/secure-session", "npm:7.5.1"],\
           ["@sonamu-kit/react-sui", "virtual:ca3fc0a12f5ab458cd17603522e82798b30c3c9ea7508a01d8a7e3ea3e637372893bb49a04a2edb32b31a62a582ff3f2e6951989c216665f6aa8e408b65da7cc#npm:0.1.14"],\
           ["@sonamu-kit/ui", "virtual:ca3fc0a12f5ab458cd17603522e82798b30c3c9ea7508a01d8a7e3ea3e637372893bb49a04a2edb32b31a62a582ff3f2e6951989c216665f6aa8e408b65da7cc#npm:0.2.6"],\
           ["@types/lodash", "npm:4.17.7"],\
@@ -887,6 +889,17 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@fastify/cookie", [\
+      ["npm:9.4.0", {\
+        "packageLocation": "../../../.yarn/berry/cache/@fastify-cookie-npm-9.4.0-b677a5574a-10c0.zip/node_modules/@fastify/cookie/",\
+        "packageDependencies": [\
+          ["@fastify/cookie", "npm:9.4.0"],\
+          ["cookie-signature", "npm:1.2.1"],\
+          ["fastify-plugin", "npm:4.5.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@fastify/cors", [\
       ["npm:8.5.0", {\
         "packageLocation": "../../../.yarn/berry/cache/@fastify-cors-npm-8.5.0-0440f18147-10c0.zip/node_modules/@fastify/cors/",\
@@ -917,12 +930,45 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@fastify/flash", [\
+      ["npm:5.2.0", {\
+        "packageLocation": "../../../.yarn/berry/cache/@fastify-flash-npm-5.2.0-2b7f5728e1-10c0.zip/node_modules/@fastify/flash/",\
+        "packageDependencies": [\
+          ["@fastify/flash", "npm:5.2.0"],\
+          ["fastify-plugin", "npm:4.5.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@fastify/merge-json-schemas", [\
       ["npm:0.1.1", {\
         "packageLocation": "../../../.yarn/berry/cache/@fastify-merge-json-schemas-npm-0.1.1-12ae828277-10c0.zip/node_modules/@fastify/merge-json-schemas/",\
         "packageDependencies": [\
           ["@fastify/merge-json-schemas", "npm:0.1.1"],\
           ["fast-deep-equal", "npm:3.1.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@fastify/passport", [\
+      ["npm:2.5.0", {\
+        "packageLocation": "../../../.yarn/berry/cache/@fastify-passport-npm-2.5.0-2e0e15d03c-10c0.zip/node_modules/@fastify/passport/",\
+        "packageDependencies": [\
+          ["@fastify/passport", "npm:2.5.0"],\
+          ["@fastify/flash", "npm:5.2.0"],\
+          ["fastify-plugin", "npm:4.5.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@fastify/secure-session", [\
+      ["npm:7.5.1", {\
+        "packageLocation": "../../../.yarn/berry/cache/@fastify-secure-session-npm-7.5.1-fad792d208-10c0.zip/node_modules/@fastify/secure-session/",\
+        "packageDependencies": [\
+          ["@fastify/secure-session", "npm:7.5.1"],\
+          ["@fastify/cookie", "npm:9.4.0"],\
+          ["fastify-plugin", "npm:4.5.1"],\
+          ["sodium-native", "npm:4.1.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -2268,6 +2314,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../.yarn/berry/cache/cookie-npm-0.6.0-362d6a2e45-10c0.zip/node_modules/cookie/",\
         "packageDependencies": [\
           ["cookie", "npm:0.6.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["cookie-signature", [\
+      ["npm:1.2.1", {\
+        "packageLocation": "../../../.yarn/berry/cache/cookie-signature-npm-1.2.1-850c88b1c6-10c0.zip/node_modules/cookie-signature/",\
+        "packageDependencies": [\
+          ["cookie-signature", "npm:1.2.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -4192,6 +4247,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["node-gyp-build", [\
+      ["npm:4.8.1", {\
+        "packageLocation": "../../../.yarn/berry/cache/node-gyp-build-npm-4.8.1-828de76ddb-10c0.zip/node_modules/node-gyp-build/",\
+        "packageDependencies": [\
+          ["node-gyp-build", "npm:4.8.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["node-releases", [\
       ["npm:2.0.17", {\
         "packageLocation": "../../../.yarn/berry/cache/node-releases-npm-2.0.17-79958d3c7f-10c0.zip/node_modules/node-releases/",\
@@ -4319,6 +4383,8 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./",\
         "packageDependencies": [\
           ["openai-tester", "workspace:."],\
+          ["@fastify/passport", "npm:2.5.0"],\
+          ["@fastify/secure-session", "npm:7.5.1"],\
           ["@sonamu-kit/react-sui", "virtual:ca3fc0a12f5ab458cd17603522e82798b30c3c9ea7508a01d8a7e3ea3e637372893bb49a04a2edb32b31a62a582ff3f2e6951989c216665f6aa8e408b65da7cc#npm:0.1.14"],\
           ["@sonamu-kit/ui", "virtual:ca3fc0a12f5ab458cd17603522e82798b30c3c9ea7508a01d8a7e3ea3e637372893bb49a04a2edb32b31a62a582ff3f2e6951989c216665f6aa8e408b65da7cc#npm:0.2.6"],\
           ["@types/lodash", "npm:4.17.7"],\
@@ -5317,6 +5383,17 @@ const RAW_RUNTIME_STATE =
           ["agent-base", "npm:7.1.1"],\
           ["debug", "virtual:c9e1a4b59e37cb479517edede3bf2093b28c0ca1a9d0e517f3c345075bd1e468980b94b4957e389116607ee7155441dfd7d09e19a4229d5d09bcf06244401590#npm:4.3.5"],\
           ["socks", "npm:2.8.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["sodium-native", [\
+      ["npm:4.1.1", {\
+        "packageLocation": "./.yarn/unplugged/sodium-native-npm-4.1.1-fca5c35116/node_modules/sodium-native/",\
+        "packageDependencies": [\
+          ["sodium-native", "npm:4.1.1"],\
+          ["node-gyp", "npm:10.2.0"],\
+          ["node-gyp-build", "npm:4.8.1"]\
         ],\
         "linkType": "HARD"\
       }]\
