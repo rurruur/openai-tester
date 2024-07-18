@@ -77,7 +77,21 @@ Content-Type: application/json
 
 ###
 
+POST {{baseUrl}}/api/user/join
+Content-Type: application/json
+
+{ "params": { "name": "김나경" } }
+
+
+###
+
+GET {{baseUrl}}/api/user/me
+	?
+Content-Type: application/json
+
+###
+
 POST {{baseUrl}}/api/user/login
 Content-Type: application/json
 
-{ "name": "NAME" }
+{ "params": { "name": "NAME" } }

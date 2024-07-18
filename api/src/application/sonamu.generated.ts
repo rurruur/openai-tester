@@ -82,8 +82,15 @@ export const UserSubsetA = z.object({
   name: z.string().max(50),
 });
 export type UserSubsetA = z.infer<typeof UserSubsetA>;
+export const UserSubsetSS = z.object({
+  id: z.number().int().nonnegative(),
+  created_at: SQLDateTimeString,
+  name: z.string().max(50),
+});
+export type UserSubsetSS = z.infer<typeof UserSubsetSS>;
 export type UserSubsetMapping = {
   A: UserSubsetA;
+  SS: UserSubsetSS;
 };
-export const UserSubsetKey = z.enum(["A"]);
+export const UserSubsetKey = z.enum(["A", "SS"]);
 export type UserSubsetKey = z.infer<typeof UserSubsetKey>;

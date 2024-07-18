@@ -11,3 +11,15 @@ export const UserSaveParams = UserBaseSchema.partial({
   created_at: true,
 });
 export type UserSaveParams = z.infer<typeof UserSaveParams>;
+
+// User - UserJoinParams
+export const UserJoinParams = UserBaseSchema.pick({
+  name: true,
+});
+export type UserJoinParams = z.infer<typeof UserJoinParams>;
+
+// User - LoginParams
+export const UserLoginParams = UserBaseSchema.pick({
+  name: true,
+});
+export type UserLoginParams = z.infer<typeof UserLoginParams>;

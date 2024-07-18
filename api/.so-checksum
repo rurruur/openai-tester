@@ -5,7 +5,7 @@
   },
   {
     "path": "/dist/application/user/user.model.js",
-    "checksum": "f6d6dcea6a0a3d709a2664c1415ec07e0decb499"
+    "checksum": "17d2eeac2e3118d44d625b3a50230614766a0a67"
   },
   {
     "path": "/src/application/chat/chat.entity.json",
@@ -17,14 +17,14 @@
   },
   {
     "path": "/src/application/sonamu.generated.ts",
-    "checksum": "0af803e0dab1fc2f3e472761230d483ab775ca04"
+    "checksum": "1acd6333e8a8a4d7e4facfe5fcfce799f5116d84"
   },
   {
     "path": "/src/application/user/user.entity.json",
-    "checksum": "c0093127a805aec76f71819a9bfbba9d9ade1f9a"
+    "checksum": "0512ef267fece8d4f68a28e5c24e5e28f08b292d"
   },
   {
     "path": "/src/application/user/user.types.ts",
-    "checksum": "d860467474bdf8caf557039ecf835831a8ed73bb"
+    "checksum": "7e73ca1269ad73f6737e630782e621df7455f910"
   }
 ]

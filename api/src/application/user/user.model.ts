@@ -5,14 +5,20 @@ import {
   NotFoundException,
   BadRequestException,
   api,
+  Context,
 } from "sonamu";
 import {
-  UserSubsetA,
   UserSubsetKey,
   UserSubsetMapping,
+  UserSubsetSS,
 } from "../sonamu.generated";
 import { userSubsetQueries } from "../sonamu.generated.sso";
-import { UserListParams, UserSaveParams } from "./user.types";
+import {
+  UserJoinParams,
+  UserListParams,
+  UserLoginParams,
+  UserSaveParams,
+} from "./user.types";
 
 /*
   User Model
@@ -134,6 +140,47 @@ class UserModelClass extends BaseModelClass {
     });
 
     return ids.length;
+  }
+
+  @api({ httpMethod: "POST" })
+  async join(params: UserJoinParams): Promise<number> {
+    const sp: UserSaveParams = {
+      name: params.name,
+    };
+
+    const [id] = await this.save([sp]);
+
+    return id;
+  }
+
+  @api({ httpMethod: "GET", clients: ["swr"] })
+  async me(context: Context): Promise<UserSubsetSS | null> {
+    const user = context.user as UserSubsetSS | null;
+    return user;
+  }
+
+  @api({ httpMethod: "POST" })
+  async login(
+    params: UserLoginParams,
+    context: Context
+  ): Promise<UserSubsetSS> {
+    console.log(params);
+
+    const {
+      rows: [user],
+    } = await this.findMany("SS", {
+      num: 1,
+      page: 1,
+      name: params.name,
+    });
+
+    if (!user) {
+      throw new NotFoundException(`존재하지 않는 사용자 ${params.name}`);
+    }
+
+    await context.passport.login(user);
+
+    return user;
   }
 }
 

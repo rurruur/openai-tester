@@ -19,4 +19,10 @@ export const userSubsetQueries: { [key in UserSubsetKey]: SubsetQuery } = {
     joins: [],
     loaders: [],
   },
+  SS: {
+    select: ["users.id", "users.created_at", "users.name"],
+    virtual: [],
+    joins: [],
+    loaders: [],
+  },
 };

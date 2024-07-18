@@ -12,9 +12,14 @@ import {
 import {
   UserSubsetKey,
   UserSubsetMapping,
-  UserSubsetA,
+  UserSubsetSS,
 } from "../sonamu.generated";
-import { UserListParams, UserSaveParams } from "./user.types";
+import {
+  UserListParams,
+  UserSaveParams,
+  UserJoinParams,
+  UserLoginParams,
+} from "./user.types";
 
 export namespace UserService {
   export function useUser<T extends UserSubsetKey>(
@@ -77,11 +82,27 @@ export namespace UserService {
     });
   }
 
-  export async function login(name: string): Promise<UserSubsetA> {
+  export async function join(params: UserJoinParams): Promise<number> {
+    return fetch({
+      method: "POST",
+      url: `/api/user/join`,
+      data: { params },
+    });
+  }
+
+  export function useMe(
+    swrOptions?: SwrOptions
+  ): SWRResponse<UserSubsetSS | null, SWRError> {
+    return useSWR(
+      handleConditional([`/api/user/me`, {}], swrOptions?.conditional)
+    );
+  }
+
+  export async function login(params: UserLoginParams): Promise<UserSubsetSS> {
     return fetch({
       method: "POST",
       url: `/api/user/login`,
-      data: { name },
+      data: { params },
     });
   }
 }

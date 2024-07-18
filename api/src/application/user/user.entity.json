@@ -19,7 +19,10 @@
     }
   ],
   "indexes": [],
-  "subsets": { "A": ["id", "created_at", "name"] },
+  "subsets": {
+    "A": ["id", "created_at", "name"],
+    "SS": ["id", "created_at", "name"]
+  },
   "enums": {
     "UserOrderBy": { "id-desc": "ID최신순" },
     "UserSearchField": { "id": "ID" }
