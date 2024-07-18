@@ -9,9 +9,14 @@ import {
 } from "sonamu";
 import { ChatSubsetKey, ChatSubsetMapping } from "../sonamu.generated";
 import { chatSubsetQueries } from "../sonamu.generated.sso";
-import { ChatListParams, ChatParams, ChatSaveParams } from "./chat.types";
+import {
+  ChatListParams,
+  ChatParams,
+  ChatSaveParams,
+  Message,
+} from "./chat.types";
 import openai from "../openai";
-import { ChatCompletionMessageParam } from "openai/resources";
+import { ThreadModel } from "../thread/thread.model";
 
 /*
   Chat Model
@@ -145,64 +150,80 @@ class ChatModelClass extends BaseModelClass {
     clients: ["axios", "swr"],
     resourceName: "ChatList",
   })
-  async getChatList({
-    user,
-  }: Context): Promise<ListResult<ChatSubsetMapping["P"]>> {
+  async getChatList({ user }: Context): Promise<Message[]> {
     if (!user) {
       throw new BadRequestException("로그인이 필요합니다.");
     }
 
-    const res = await this.findMany("P", {
-      num: 0,
-      orderBy: "id-asc",
+    const thread = await ThreadModel.findOne("A", {
       user_id: user.id,
     });
+    if (!thread) {
+      throw new NotFoundException("Thread가 존재하지 않습니다.");
+    }
 
-    return res;
+    const list = await openai.beta.threads.messages.list(thread.uid, {
+      order: "asc",
+    });
+
+    return list.data.map(
+      (d) =>
+        ({
+          user: d.role === "user",
+          content: d.content[0].type === "text" ? d.content[0].text.value : "",
+          createdAt: d.created_at,
+        } as Message)
+    );
   }
 
   @api({ httpMethod: "POST" })
-  async chat({ content }: ChatParams, { user }: Context): Promise<string> {
+  async chat(params: ChatParams, { user }: Context): Promise<Message[]> {
     if (!user) {
       throw new BadRequestException("로그인이 필요합니다.");
     }
 
-    const { rows: messages } = await this.findMany("P", {
-      num: 0,
-      orderBy: "id-asc",
+    const { content } = params;
+
+    const thread = await ThreadModel.findOne("A", {
       user_id: user.id,
     });
+    if (!thread) {
+      throw new NotFoundException("Thread가 존재하지 않습니다.");
+    }
 
-    await this.save([
-      {
-        content,
-        to_id: 2, // ai
-        from_id: user.id,
-      },
-    ]);
-
-    const res = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
-      messages: [
-        ...(messages.map((e) => ({
-          role: e.from.id === user.id ? "user" : "system",
-          content: e.content,
-        })) as ChatCompletionMessageParam[]),
-        {
-          role: "user",
-          content,
-        },
-      ],
+    // 메시지 생성
+    await openai.beta.threads.messages.create(thread.uid, {
+      role: "user",
+      content,
     });
-    await this.save([
-      {
-        content: res.choices[0].message.content ?? "",
-        to_id: user.id,
-        from_id: 2, // ai
-      },
-    ]);
 
-    return res.choices[0].message.content ?? "";
+    // 스레드 실행
+    let run = await openai.beta.threads.runs.create(thread.uid, {
+      assistant_id: "asst_MY92V7VcjSZTUeRkyAhy3FeX",
+    });
+    await new Promise((resolve) => {
+      const interval = setInterval(async () => {
+        run = await openai.beta.threads.runs.retrieve(thread.uid, run.id);
+        if (run.status !== "queued" && run.status !== "in_progress") {
+          clearInterval(interval);
+          resolve(run);
+        }
+      }, 500);
+    });
+
+    // 메시지 리스트 조회
+    const list = await openai.beta.threads.messages.list(thread.uid, {
+      order: "asc",
+    });
+
+    return list.data.map(
+      (d) =>
+        ({
+          user: d.role === "user",
+          content: d.content[0].type === "text" ? d.content[0].text.value : "",
+          createdAt: d.created_at,
+        } as Message)
+    );
   }
 }
 

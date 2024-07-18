@@ -170,8 +170,6 @@ class UserModelClass extends BaseModelClass {
     params: UserLoginParams,
     context: Context
   ): Promise<UserSubsetSS> {
-    console.log(params);
-
     const {
       rows: [user],
     } = await this.findMany("SS", {

@@ -17,13 +17,13 @@ export type ChatSaveParams = z.infer<typeof ChatSaveParams>;
 // Chat - Params
 export const ChatParams = z.object({
   content: z.string(),
-  messages: z
-    .array(
-      z.object({
-        role: z.string(),
-        content: z.string(),
-      })
-    )
-    .optional(),
 });
 export type ChatParams = z.infer<typeof ChatParams>;
+
+// Chat - Message
+export const Message = z.object({
+  user: z.boolean(),
+  content: z.string(),
+  createdAt: z.number(),
+});
+export type Message = z.infer<typeof Message>;

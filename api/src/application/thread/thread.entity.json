@@ -1,0 +1,31 @@
+{
+  "id": "Thread",
+  "table": "threads",
+  "title": "THREAD",
+  "props": [
+    { "name": "id", "type": "integer", "unsigned": true, "desc": "ID" },
+    {
+      "name": "created_at",
+      "type": "timestamp",
+      "desc": "등록일시",
+      "dbDefault": "CURRENT_TIMESTAMP"
+    },
+    { "name": "uid", "desc": "UID", "type": "string", "length": 128 },
+    {
+      "type": "relation",
+      "name": "user",
+      "with": "User",
+      "toFilter": true,
+      "desc": "USER",
+      "relationType": "BelongsToOne",
+      "onUpdate": "CASCADE",
+      "onDelete": "CASCADE"
+    }
+  ],
+  "indexes": [],
+  "subsets": { "A": ["id", "created_at", "uid"] },
+  "enums": {
+    "ThreadOrderBy": { "id-desc": "ID최신순" },
+    "ThreadSearchField": { "id": "ID" }
+  }
+}

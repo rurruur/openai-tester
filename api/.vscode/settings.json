@@ -9,7 +9,7 @@
   "rest-client.environmentVariables": {
     "local": {
       "baseUrl": "http://localhost:16000",
-      "session": "UBaaPsGQSFqFz5yNw%2BIhzs%2Bx4Uiu%2BRuLqyB%2B5qLCKx2pjKQAvEUNrqKcbXMgAVuTMGIpFSwS9Eg3qe9LSByT4%2BWcAh4V2w1Fqej6G12F8Vp4bZKb0rDR%2BYsXE%2BRSdkJHo9zM7NJAF2oAeTjMYQ%3D%3D%3BlxopoZUMwtG2Lktjn1h4vwHSyQ6tE0GJ"
+      "session": "3gLbeSHiiCEzVXPwJ7w%2BS%2FRPG6O0WnLc%2FQmCTpTajo0NcNkfngt%2BTKUvlKxcxc%2BPd4lJiXg7vYRSSwelcHPaQe3h1%2BydEkGsSSElDIw2czL1cvvrA6cci61vdguL%2BGA616CSzn%2FO%3BrtFXH52dJvIYG63bKiYYKwTx7EIHBhot"
     },
     "$shared": {
       "baseUrl": "http://localhost:16000"

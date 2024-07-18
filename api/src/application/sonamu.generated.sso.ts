@@ -1,5 +1,9 @@
 import { SubsetQuery } from "sonamu";
-import { ChatSubsetKey, UserSubsetKey } from "./sonamu.generated";
+import {
+  ChatSubsetKey,
+  ThreadSubsetKey,
+  UserSubsetKey,
+} from "./sonamu.generated";
 
 // SubsetQuery: Chat
 export const chatSubsetQueries: { [key in ChatSubsetKey]: SubsetQuery } = {
@@ -36,6 +40,16 @@ export const chatSubsetQueries: { [key in ChatSubsetKey]: SubsetQuery } = {
         to: "to.id",
       },
     ],
+    loaders: [],
+  },
+};
+
+// SubsetQuery: Thread
+export const threadSubsetQueries: { [key in ThreadSubsetKey]: SubsetQuery } = {
+  A: {
+    select: ["threads.id", "threads.created_at", "threads.uid"],
+    virtual: [],
+    joins: [],
     loaders: [],
   },
 };

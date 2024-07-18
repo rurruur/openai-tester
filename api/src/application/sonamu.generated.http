@@ -33,7 +33,8 @@ Content-Type: application/json
       "created_at": "2000-01-01",
       "from_id": 0,
       "content": "CONTENT",
-      "to_id": 0
+      "to_id": 0,
+      "summary": null
     }
   ]
 }
@@ -58,12 +59,52 @@ Content-Type: application/json
 POST {{baseUrl}}/api/chat/chat
 Content-Type: application/json
 
-{
-  "nonameAt0": {
-    "content": "CONTENT",
-    "messages": [{ "role": "ROLE", "content": "CONTENT" }]
-  }
-}
+{ "params": { "content": "CONTENT" } }
+
+
+###
+
+GET {{baseUrl}}/api/thread/findById
+	?subset=A
+	&id=0
+Content-Type: application/json
+
+###
+
+GET {{baseUrl}}/api/thread/findMany
+	?subset=A
+	&params[num]=24
+	&params[page]=1
+	&params[search]=id
+	&params[keyword]=KEYWORD
+	&params[orderBy]=id-desc
+	&params[queryMode]=both
+	&params[id]=0
+	&params[user_id]=0
+Content-Type: application/json
+
+###
+
+POST {{baseUrl}}/api/thread/save
+Content-Type: application/json
+
+{ "spa": [{ "id": 0, "created_at": "2000-01-01", "uid": "UID", "user_id": 0 }] }
+
+
+###
+
+POST {{baseUrl}}/api/thread/del
+Content-Type: application/json
+
+{ "ids": [0] }
+
+
+###
+
+POST {{baseUrl}}/api/thread/create
+Content-Type: application/json
+
+{}
 
 
 ###
