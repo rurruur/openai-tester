@@ -10,7 +10,7 @@ import {
   swrPostFetcher,
 } from "../sonamu.shared";
 import { ChatSubsetKey, ChatSubsetMapping } from "../sonamu.generated";
-import { ChatListParams, ChatSaveParams } from "./chat.types";
+import { ChatListParams, ChatSaveParams, ChatParams } from "./chat.types";
 
 export namespace ChatService {
   export function useChat<T extends ChatSubsetKey>(
@@ -73,11 +73,27 @@ export namespace ChatService {
     });
   }
 
-  export async function chat(content: string): Promise<string> {
+  export function useChatList(
+    swrOptions?: SwrOptions
+  ): SWRResponse<ListResult<ChatSubsetMapping["P"]>, SWRError> {
+    return useSWR(
+      handleConditional([`/api/chat/getChatList`, {}], swrOptions?.conditional)
+    );
+  }
+  export async function getChatList(): Promise<
+    ListResult<ChatSubsetMapping["P"]>
+  > {
+    return fetch({
+      method: "GET",
+      url: `/api/chat/getChatList?${qs.stringify({})}`,
+    });
+  }
+
+  export async function chat(nonameAt0: ChatParams): Promise<string> {
     return fetch({
       method: "POST",
       url: `/api/chat/chat`,
-      data: { content },
+      data: { nonameAt0 },
     });
   }
 }

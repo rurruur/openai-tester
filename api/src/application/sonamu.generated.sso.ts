@@ -9,6 +9,35 @@ export const chatSubsetQueries: { [key in ChatSubsetKey]: SubsetQuery } = {
     joins: [],
     loaders: [],
   },
+  P: {
+    select: [
+      "chats.id",
+      "chats.created_at",
+      "chats.content",
+      "from.id as from__id",
+      "from.name as from__name",
+      "to.id as to__id",
+      "to.name as to__name",
+    ],
+    virtual: [],
+    joins: [
+      {
+        as: "from",
+        join: "inner",
+        table: "users",
+        from: "chats.from_id",
+        to: "from.id",
+      },
+      {
+        as: "to",
+        join: "inner",
+        table: "users",
+        from: "chats.to_id",
+        to: "to.id",
+      },
+    ],
+    loaders: [],
+  },
 };
 
 // SubsetQuery: User

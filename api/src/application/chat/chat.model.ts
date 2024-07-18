@@ -9,8 +9,9 @@ import {
 } from "sonamu";
 import { ChatSubsetKey, ChatSubsetMapping } from "../sonamu.generated";
 import { chatSubsetQueries } from "../sonamu.generated.sso";
-import { ChatListParams, ChatSaveParams } from "./chat.types";
+import { ChatListParams, ChatParams, ChatSaveParams } from "./chat.types";
 import openai from "../openai";
+import { ChatCompletionMessageParam } from "openai/resources";
 
 /*
   Chat Model
@@ -71,6 +72,11 @@ class ChatModelClass extends BaseModelClass {
         // id
         if (params.id) {
           qb.whereIn("chats.id", asArray(params.id));
+        }
+        // user_id
+        if (params.user_id) {
+          qb.where("chats.from_id", params.user_id) //
+            .orWhere("chats.to_id", params.user_id);
         }
 
         // search-keyword
@@ -134,11 +140,38 @@ class ChatModelClass extends BaseModelClass {
     return ids.length;
   }
 
-  @api({ httpMethod: "POST" })
-  async chat(content: string, { user }: Context): Promise<string> {
+  @api({
+    httpMethod: "GET",
+    clients: ["axios", "swr"],
+    resourceName: "ChatList",
+  })
+  async getChatList({
+    user,
+  }: Context): Promise<ListResult<ChatSubsetMapping["P"]>> {
     if (!user) {
       throw new BadRequestException("로그인이 필요합니다.");
     }
+
+    const res = await this.findMany("P", {
+      num: 0,
+      orderBy: "id-asc",
+      user_id: user.id,
+    });
+
+    return res;
+  }
+
+  @api({ httpMethod: "POST" })
+  async chat({ content }: ChatParams, { user }: Context): Promise<string> {
+    if (!user) {
+      throw new BadRequestException("로그인이 필요합니다.");
+    }
+
+    const { rows: messages } = await this.findMany("P", {
+      num: 0,
+      orderBy: "id-asc",
+      user_id: user.id,
+    });
 
     await this.save([
       {
@@ -151,6 +184,10 @@ class ChatModelClass extends BaseModelClass {
     const res = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
+        ...(messages.map((e) => ({
+          role: e.from.id === user.id ? "user" : "system",
+          content: e.content,
+        })) as ChatCompletionMessageParam[]),
         {
           role: "user",
           content,

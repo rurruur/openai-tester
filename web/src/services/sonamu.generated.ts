@@ -2,9 +2,14 @@ import { z } from "zod";
 import { zArrayable, SQLDateTimeString, SonamuQueryMode } from "src/services/sonamu.shared";
 
 // Enums: Chat
-export const ChatOrderBy = z.enum(["id-desc"]).describe("ChatOrderBy");
+export const ChatOrderBy = z
+  .enum(["id-desc", "id-asc"])
+  .describe("ChatOrderBy");
 export type ChatOrderBy = z.infer<typeof ChatOrderBy>;
-export const ChatOrderByLabel = { "id-desc": "ID최신순" };
+export const ChatOrderByLabel = {
+  "id-desc": "ID최신순",
+  "id-asc": "ID오래된순",
+};
 export const ChatSearchField = z.enum(["id"]).describe("ChatSearchField");
 export type ChatSearchField = z.infer<typeof ChatSearchField>;
 export const ChatSearchFieldLabel = { id: "ID" };
@@ -45,6 +50,8 @@ export const ChatBaseListParams = z
     orderBy: ChatOrderBy,
     queryMode: SonamuQueryMode,
     id: zArrayable(z.number().int().positive()),
+    from_id: z.number().int(),
+    to_id: z.number().int(),
   })
   .partial();
 export type ChatBaseListParams = z.infer<typeof ChatBaseListParams>;
@@ -70,10 +77,25 @@ export const ChatSubsetA = z.object({
   created_at: SQLDateTimeString,
 });
 export type ChatSubsetA = z.infer<typeof ChatSubsetA>;
+export const ChatSubsetP = z.object({
+  id: z.number().int().nonnegative(),
+  created_at: SQLDateTimeString,
+  content: z.string().max(65535),
+  from: z.object({
+    id: z.number().int().nonnegative(),
+    name: z.string().max(50),
+  }),
+  to: z.object({
+    id: z.number().int().nonnegative(),
+    name: z.string().max(50),
+  }),
+});
+export type ChatSubsetP = z.infer<typeof ChatSubsetP>;
 export type ChatSubsetMapping = {
   A: ChatSubsetA;
+  P: ChatSubsetP;
 };
-export const ChatSubsetKey = z.enum(["A"]);
+export const ChatSubsetKey = z.enum(["A", "P"]);
 export type ChatSubsetKey = z.infer<typeof ChatSubsetKey>;
 
 // Subsets: User

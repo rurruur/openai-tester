@@ -15,6 +15,7 @@
       "name": "from",
       "with": "User",
       "nullable": false,
+      "toFilter": true,
       "desc": "FROM",
       "relationType": "BelongsToOne",
       "onUpdate": "CASCADE",
@@ -25,6 +26,7 @@
       "type": "relation",
       "name": "to",
       "with": "User",
+      "toFilter": true,
       "desc": "TO",
       "relationType": "BelongsToOne",
       "onUpdate": "CASCADE",
@@ -32,9 +34,20 @@
     }
   ],
   "indexes": [],
-  "subsets": { "A": ["id", "created_at"] },
+  "subsets": {
+    "A": ["id", "created_at"],
+    "P": [
+      "id",
+      "created_at",
+      "from.id",
+      "from.name",
+      "content",
+      "to.id",
+      "to.name"
+    ]
+  },
   "enums": {
-    "ChatOrderBy": { "id-desc": "ID최신순" },
+    "ChatOrderBy": { "id-desc": "ID최신순", "id-asc": "ID오래된순" },
     "ChatSearchField": { "id": "ID" }
   }
 }
