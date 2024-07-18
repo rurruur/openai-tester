@@ -1,0 +1,31 @@
+{
+  "id": "Chat",
+  "table": "chats",
+  "title": "CHAT",
+  "props": [
+    { "name": "id", "type": "integer", "unsigned": true, "desc": "ID" },
+    {
+      "name": "created_at",
+      "type": "timestamp",
+      "desc": "등록일시",
+      "dbDefault": "CURRENT_TIMESTAMP"
+    },
+    {
+      "type": "relation",
+      "name": "user",
+      "with": "User",
+      "nullable": false,
+      "desc": "USER",
+      "relationType": "BelongsToOne",
+      "onUpdate": "CASCADE",
+      "onDelete": "CASCADE"
+    },
+    { "name": "content", "desc": "내용", "type": "text", "textType": "text" }
+  ],
+  "indexes": [],
+  "subsets": { "A": ["id", "created_at"] },
+  "enums": {
+    "ChatOrderBy": { "id-desc": "ID최신순" },
+    "ChatSearchField": { "id": "ID" }
+  }
+}

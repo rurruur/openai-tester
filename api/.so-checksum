@@ -1,0 +1,30 @@
+[
+  {
+    "path": "/dist/application/chat/chat.model.js",
+    "checksum": "d3bf9a1a3a84bf9cc97d08ade8cfe3667be57153"
+  },
+  {
+    "path": "/dist/application/user/user.model.js",
+    "checksum": "f6d6dcea6a0a3d709a2664c1415ec07e0decb499"
+  },
+  {
+    "path": "/src/application/chat/chat.entity.json",
+    "checksum": "1b230aae27fe8935b6556f0d7dc08e1a5d2b782d"
+  },
+  {
+    "path": "/src/application/chat/chat.types.ts",
+    "checksum": "454d9b485e5e143ad0d04a0f1fbabe4cdf755468"
+  },
+  {
+    "path": "/src/application/sonamu.generated.ts",
+    "checksum": "0af803e0dab1fc2f3e472761230d483ab775ca04"
+  },
+  {
+    "path": "/src/application/user/user.entity.json",
+    "checksum": "c0093127a805aec76f71819a9bfbba9d9ade1f9a"
+  },
+  {
+    "path": "/src/application/user/user.types.ts",
+    "checksum": "d860467474bdf8caf557039ecf835831a8ed73bb"
+  }
+]
