@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   Comment,
@@ -7,6 +8,7 @@ import {
   Header,
   TextArea,
 } from "semantic-ui-react";
+import { UserService } from "src/services/user/user.service";
 
 type Message = {
   content: string;
@@ -16,6 +18,9 @@ type Message = {
 export default function PublicIndexPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
+
+  const navigate = useNavigate();
+  const { data, isLoading } = UserService.useMe();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(e.target.value);
@@ -31,6 +36,13 @@ export default function PublicIndexPage() {
       setInputValue("");
     }
   };
+
+  useEffect(() => {
+    if (isLoading) return;
+    if (!data) {
+      navigate("/login", { state: { from: "/" } });
+    }
+  }, [data, isLoading]);
 
   return (
     <Container style={{ marginTop: "2rem" }}>
