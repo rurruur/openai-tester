@@ -67,10 +67,44 @@ button:focus-visible {
   }
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .card {
   padding: 2em;
 }
 
 .description {
   color: #888;
+}
+
+.ui.container {
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .chat-list {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    overflow-y: scroll;
+
+    .chat-item {
+      gap: 1em;
+      margin-bottom: 0.7em;
+      text-align: left;
+      max-width: 80%;
+      padding: 0.8em;
+      border-radius: 1.5em;
+      background-color: #e0e0e0;
+      width: fit-content;
+    }
+
+    .me {
+      background-color: #d6e3e3;
+      align-self: flex-end;
+    }
+  }
 }

@@ -8,19 +8,20 @@ import {
   Header,
   TextArea,
 } from "semantic-ui-react";
+import Markdown from "react-markdown";
+import { ChatService } from "src/services/chat/chat.service";
+import { defaultCatch } from "src/services/sonamu.shared";
 import { UserService } from "src/services/user/user.service";
-
-type Message = {
-  content: string;
-  isUser: boolean;
-};
+import { Message } from "src/services/chat/chat.types";
 
 export default function PublicIndexPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
 
   const navigate = useNavigate();
-  const { data, isLoading } = UserService.useMe();
+  const { data: user, isLoading: isUserLoading } = UserService.useMe();
+
+  const { data, isLoading } = ChatService.useChatList();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(e.target.value);
@@ -28,30 +29,38 @@ export default function PublicIndexPage() {
 
   const handleFormSubmit = () => {
     if (inputValue.trim() !== "") {
-      const newMessage: Message = {
-        content: inputValue,
-        isUser: true, // Flag to determine if the message is sent by user
-      };
-      setMessages([...messages, newMessage]);
-      setInputValue("");
+      ChatService.chat({ content: inputValue })
+        .then((res) => {
+          setInputValue("");
+          setMessages(res);
+        })
+        .catch(defaultCatch);
     }
   };
 
   useEffect(() => {
-    if (isLoading) return;
-    if (!data) {
+    if (isUserLoading) return;
+    if (!user) {
       navigate("/login", { state: { from: "/" } });
     }
-  }, [data, isLoading]);
+  }, [user, isUserLoading]);
+
+  useEffect(() => {
+    if (data) {
+      setMessages(data);
+    }
+  }, [data]);
 
   return (
     <Container style={{ marginTop: "2rem" }}>
       <Header as="h2">Chat App</Header>
-      <Comment.Group style={{ maxWidth: "500px" }}>
-        {messages.map((message, index) => (
-          <Comment key={index} textAlign={message.isUser ? "right" : "left"}>
+      <Comment.Group style={{ maxWidth: "500px" }} className="chat-list">
+        {messages?.map((chat, index) => (
+          <Comment key={index} className={`chat-item ${chat.user ? "me" : ""}`}>
             <Comment.Content>
-              <Comment.Text>{message.content}</Comment.Text>
+              <Comment.Text>
+                <Markdown>{chat.content}</Markdown>
+              </Comment.Text>
             </Comment.Content>
           </Comment>
         ))}
