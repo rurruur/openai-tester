@@ -10,7 +10,13 @@
       "desc": "등록일시",
       "dbDefault": "CURRENT_TIMESTAMP"
     },
-    { "name": "uid", "desc": "UID", "type": "string", "length": 128 },
+    {
+      "name": "uid",
+      "toFilter": true,
+      "desc": "UID",
+      "type": "string",
+      "length": 128
+    },
     {
       "type": "relation",
       "name": "user",

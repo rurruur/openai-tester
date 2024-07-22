@@ -17,6 +17,8 @@ export type ChatSaveParams = z.infer<typeof ChatSaveParams>;
 // Chat - Params
 export const ChatParams = z.object({
   content: z.string(),
+  // threadId: z.string(),
+  // assistantId: z.string(),
 });
 export type ChatParams = z.infer<typeof ChatParams>;
 

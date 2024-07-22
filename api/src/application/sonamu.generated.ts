@@ -118,6 +118,7 @@ export const ThreadBaseListParams = z
     orderBy: ThreadOrderBy,
     queryMode: SonamuQueryMode,
     id: zArrayable(z.number().int().positive()),
+    uid: z.string().max(128),
     user_id: z.number().int(),
   })
   .partial();

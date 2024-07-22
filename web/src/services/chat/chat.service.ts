@@ -79,16 +79,20 @@ export namespace ChatService {
   }
 
   export function useChatList(
+    threadId: string,
     swrOptions?: SwrOptions
   ): SWRResponse<Message[], SWRError> {
     return useSWR(
-      handleConditional([`/api/chat/getChatList`, {}], swrOptions?.conditional)
+      handleConditional(
+        [`/api/chat/getChatList`, { threadId }],
+        swrOptions?.conditional
+      )
     );
   }
-  export async function getChatList(): Promise<Message[]> {
+  export async function getChatList(threadId: string): Promise<Message[]> {
     return fetch({
       method: "GET",
-      url: `/api/chat/getChatList?${qs.stringify({})}`,
+      url: `/api/chat/getChatList?${qs.stringify({ threadId })}`,
     });
   }
 

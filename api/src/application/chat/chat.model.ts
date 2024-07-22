@@ -150,19 +150,20 @@ class ChatModelClass extends BaseModelClass {
     clients: ["axios", "swr"],
     resourceName: "ChatList",
   })
-  async getChatList({ user }: Context): Promise<Message[]> {
+  async getChatList(threadId: string, { user }: Context): Promise<Message[]> {
     if (!user) {
       throw new BadRequestException("로그인이 필요합니다.");
     }
 
     const thread = await ThreadModel.findOne("A", {
       user_id: user.id,
+      uid: threadId,
     });
     if (!thread) {
       throw new NotFoundException("Thread가 존재하지 않습니다.");
     }
 
-    const list = await openai.beta.threads.messages.list(thread.uid, {
+    const list = await openai.beta.threads.messages.list(threadId, {
       order: "asc",
     });
 

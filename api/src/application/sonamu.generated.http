@@ -106,7 +106,7 @@ Content-Type: application/json
 ###
 
 GET {{baseUrl}}/api/chat/getChatList
-	?
+	?threadId=THREADID
 Content-Type: application/json
 
 ###
@@ -135,6 +135,7 @@ GET {{baseUrl}}/api/thread/findMany
 	&params[orderBy]=id-desc
 	&params[queryMode]=both
 	&params[id]=0
+	&params[uid]=UID
 	&params[user_id]=0
 Content-Type: application/json
 
@@ -161,6 +162,12 @@ Content-Type: application/json
 
 {}
 
+
+###
+
+GET {{baseUrl}}/api/thread/list
+	?
+Content-Type: application/json
 
 ###
 

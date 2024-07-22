@@ -10,7 +10,7 @@ import {
   swrPostFetcher,
 } from "../sonamu.shared";
 import { ThreadSubsetKey, ThreadSubsetMapping } from "../sonamu.generated";
-import { ThreadListParams, ThreadSaveParams } from "./thread.types";
+import { ThreadListParams, ThreadSaveParams, Thread } from "./thread.types";
 
 export namespace ThreadService {
   export function useThread<T extends ThreadSubsetKey>(
@@ -79,5 +79,13 @@ export namespace ThreadService {
       url: `/api/thread/create`,
       data: {},
     });
+  }
+
+  export function useList(
+    swrOptions?: SwrOptions
+  ): SWRResponse<Thread[], SWRError> {
+    return useSWR(
+      handleConditional([`/api/thread/list`, {}], swrOptions?.conditional)
+    );
   }
 }

@@ -11,3 +11,10 @@ export const ThreadSaveParams = ThreadBaseSchema.partial({
   created_at: true,
 });
 export type ThreadSaveParams = z.infer<typeof ThreadSaveParams>;
+
+// Thread
+export const Thread = z.object({
+  id: z.string(),
+  created_at: z.number(),
+});
+export type Thread = z.infer<typeof Thread>;

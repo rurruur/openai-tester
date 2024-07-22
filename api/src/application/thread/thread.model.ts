@@ -9,7 +9,7 @@ import {
 } from "sonamu";
 import { ThreadSubsetKey, ThreadSubsetMapping } from "../sonamu.generated";
 import { threadSubsetQueries } from "../sonamu.generated.sso";
-import { ThreadListParams, ThreadSaveParams } from "./thread.types";
+import { Thread, ThreadListParams, ThreadSaveParams } from "./thread.types";
 import openai from "../openai";
 
 /*
@@ -153,6 +153,25 @@ class ThreadModelClass extends BaseModelClass {
     ]);
 
     return id;
+  }
+
+  @api({ httpMethod: "GET", clients: ["swr"] })
+  async list({ user }: Context): Promise<Thread[]> {
+    if (!user) {
+      throw new BadRequestException("로그인이 필요합니다.");
+    }
+
+    const { rows: threadIds } = await this.findMany("A", {
+      user_id: user.id,
+      num: 0,
+      queryMode: "list",
+      orderBy: "id-desc",
+    });
+    const threads = await Promise.all(
+      threadIds.map(({ uid }) => openai.beta.threads.retrieve(uid))
+    );
+
+    return threads;
   }
 }
 
