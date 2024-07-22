@@ -1,9 +1,22 @@
 import { SubsetQuery } from "sonamu";
 import {
+  AssistantSubsetKey,
   ChatSubsetKey,
   ThreadSubsetKey,
   UserSubsetKey,
 } from "./sonamu.generated";
+
+// SubsetQuery: Assistant
+export const assistantSubsetQueries: {
+  [key in AssistantSubsetKey]: SubsetQuery;
+} = {
+  A: {
+    select: ["assistants.id", "assistants.created_at"],
+    virtual: [],
+    joins: [],
+    loaders: [],
+  },
+};
 
 // SubsetQuery: Chat
 export const chatSubsetQueries: { [key in ChatSubsetKey]: SubsetQuery } = {

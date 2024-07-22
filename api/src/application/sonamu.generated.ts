@@ -1,6 +1,18 @@
 import { z } from "zod";
 import { zArrayable, SQLDateTimeString, SonamuQueryMode } from "sonamu";
 
+// Enums: Assistant
+export const AssistantOrderBy = z
+  .enum(["id-desc"])
+  .describe("AssistantOrderBy");
+export type AssistantOrderBy = z.infer<typeof AssistantOrderBy>;
+export const AssistantOrderByLabel = { "id-desc": "ID최신순" };
+export const AssistantSearchField = z
+  .enum(["id"])
+  .describe("AssistantSearchField");
+export type AssistantSearchField = z.infer<typeof AssistantSearchField>;
+export const AssistantSearchFieldLabel = { id: "ID" };
+
 // Enums: Chat
 export const ChatOrderBy = z
   .enum(["id-desc", "id-asc"])
@@ -30,6 +42,15 @@ export const UserSearchField = z.enum(["id"]).describe("UserSearchField");
 export type UserSearchField = z.infer<typeof UserSearchField>;
 export const UserSearchFieldLabel = { id: "ID" };
 
+// BaseSchema: Assistant
+export const AssistantBaseSchema = z.object({
+  id: z.number().int().nonnegative(),
+  created_at: SQLDateTimeString,
+  uid: z.string().max(128),
+  user_id: z.number().int(),
+});
+export type AssistantBaseSchema = z.infer<typeof AssistantBaseSchema>;
+
 // BaseSchema: Chat
 export const ChatBaseSchema = z.object({
   id: z.number().int().nonnegative(),
@@ -56,6 +77,20 @@ export const UserBaseSchema = z.object({
   name: z.string().max(50),
 });
 export type UserBaseSchema = z.infer<typeof UserBaseSchema>;
+
+// BaseListParams: Assistant
+export const AssistantBaseListParams = z
+  .object({
+    num: z.number().int().nonnegative(),
+    page: z.number().int().min(1),
+    search: AssistantSearchField,
+    keyword: z.string(),
+    orderBy: AssistantOrderBy,
+    queryMode: SonamuQueryMode,
+    id: zArrayable(z.number().int().positive()),
+  })
+  .partial();
+export type AssistantBaseListParams = z.infer<typeof AssistantBaseListParams>;
 
 // BaseListParams: Chat
 export const ChatBaseListParams = z
@@ -102,6 +137,18 @@ export const UserBaseListParams = z
   })
   .partial();
 export type UserBaseListParams = z.infer<typeof UserBaseListParams>;
+
+// Subsets: Assistant
+export const AssistantSubsetA = z.object({
+  id: z.number().int().nonnegative(),
+  created_at: SQLDateTimeString,
+});
+export type AssistantSubsetA = z.infer<typeof AssistantSubsetA>;
+export type AssistantSubsetMapping = {
+  A: AssistantSubsetA;
+};
+export const AssistantSubsetKey = z.enum(["A"]);
+export type AssistantSubsetKey = z.infer<typeof AssistantSubsetKey>;
 
 // Subsets: Chat
 export const ChatSubsetA = z.object({

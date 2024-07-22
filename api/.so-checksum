@@ -1,5 +1,9 @@
 [
   {
+    "path": "/dist/application/assistant/assistant.model.js",
+    "checksum": "22dda7d90eb65007ed554cf74468e84a5ce80896"
+  },
+  {
     "path": "/dist/application/chat/chat.model.js",
     "checksum": "87a11fa7d0ad8ca2e4875d09f496c900465e583c"
   },
@@ -12,6 +16,14 @@
     "checksum": "d5b0225eca78de7b6ef2de6a2091057004e29ef6"
   },
   {
+    "path": "/src/application/assistant/assistant.entity.json",
+    "checksum": "87b6f2065380488b66a3450070d154fdb69c1da6"
+  },
+  {
+    "path": "/src/application/assistant/assistant.types.ts",
+    "checksum": "59f9c78a05c8dd9ff499f0c0852fcf523c94baea"
+  },
+  {
     "path": "/src/application/chat/chat.entity.json",
     "checksum": "a67db5defec7ee9d47dc5ec9849be668ceec95a8"
   },
@@ -21,7 +33,7 @@
   },
   {
     "path": "/src/application/sonamu.generated.ts",
-    "checksum": "c9269ef08f1688d7f100bdd7b1e00081b35745bd"
+    "checksum": "79cea3bbe991531b06a5f55f6fd34fff8f4d046b"
   },
   {
     "path": "/src/application/thread/thread.entity.json",

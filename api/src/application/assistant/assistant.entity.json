@@ -1,0 +1,30 @@
+{
+  "id": "Assistant",
+  "table": "assistants",
+  "title": "ASSISTANT",
+  "props": [
+    { "name": "id", "type": "integer", "unsigned": true, "desc": "ID" },
+    {
+      "name": "created_at",
+      "type": "timestamp",
+      "desc": "등록일시",
+      "dbDefault": "CURRENT_TIMESTAMP"
+    },
+    { "name": "uid", "desc": "UID", "type": "string", "length": 128 },
+    {
+      "type": "relation",
+      "name": "user",
+      "with": "User",
+      "desc": "USER",
+      "relationType": "BelongsToOne",
+      "onUpdate": "CASCADE",
+      "onDelete": "CASCADE"
+    }
+  ],
+  "indexes": [],
+  "subsets": { "A": ["id", "created_at"] },
+  "enums": {
+    "AssistantOrderBy": { "id-desc": "ID최신순" },
+    "AssistantSearchField": { "id": "ID" }
+  }
+}
