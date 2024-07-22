@@ -50,6 +50,12 @@ Content-Type: application/json
 
 ###
 
+GET {{baseUrl}}/api/assistant/list
+	?
+Content-Type: application/json
+
+###
+
 GET {{baseUrl}}/api/chat/findById
 	?subset=A
 	&id=0

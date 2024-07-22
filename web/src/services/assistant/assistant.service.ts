@@ -87,4 +87,21 @@ export namespace AssistantService {
       data: { params },
     });
   }
+
+  export function useList(
+    swrOptions?: SwrOptions
+  ): SWRResponse<
+    {
+      id: string;
+      name: string | null;
+      description: string | null;
+      instructions: string | null;
+      model: string;
+    }[],
+    SWRError
+  > {
+    return useSWR(
+      handleConditional([`/api/assistant/list`, {}], swrOptions?.conditional)
+    );
+  }
 }

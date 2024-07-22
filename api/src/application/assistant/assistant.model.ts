@@ -13,6 +13,7 @@ import {
 } from "../sonamu.generated";
 import { assistantSubsetQueries } from "../sonamu.generated.sso";
 import {
+  Assistant,
   AssistantCreateParams,
   AssistantListParams,
   AssistantSaveParams,
@@ -171,6 +172,17 @@ class AssistantModelClass extends BaseModelClass {
     ]);
 
     return id;
+  }
+
+  @api({ httpMethod: "GET", clients: ["swr"] })
+  async list({ user }: Context): Promise<Assistant[]> {
+    if (!user) {
+      throw new BadRequestException("로그인이 필요합니다.");
+    }
+
+    const assistants = await openai.beta.assistants.list();
+
+    return assistants.data;
   }
 }
 

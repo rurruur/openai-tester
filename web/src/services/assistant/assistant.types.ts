@@ -22,3 +22,13 @@ export const AssistantCreateParams = z.object({
   instructions: z.string(),
 });
 export type AssistantCreateParams = z.infer<typeof AssistantCreateParams>;
+
+// Assistant
+export const Assistant = z.object({
+  id: z.string(),
+  name: z.string().nullable(),
+  description: z.string().nullable(),
+  instructions: z.string().nullable(),
+  model: z.string(),
+});
+export type Assistant = z.infer<typeof Assistant>;
