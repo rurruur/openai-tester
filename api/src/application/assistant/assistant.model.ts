@@ -5,13 +5,19 @@ import {
   NotFoundException,
   BadRequestException,
   api,
+  Context,
 } from "sonamu";
 import {
   AssistantSubsetKey,
   AssistantSubsetMapping,
 } from "../sonamu.generated";
 import { assistantSubsetQueries } from "../sonamu.generated.sso";
-import { AssistantListParams, AssistantSaveParams } from "./assistant.types";
+import {
+  AssistantCreateParams,
+  AssistantListParams,
+  AssistantSaveParams,
+} from "./assistant.types";
+import openai from "../openai";
 
 /*
   Assistant Model
@@ -141,6 +147,30 @@ class AssistantModelClass extends BaseModelClass {
     });
 
     return ids.length;
+  }
+
+  @api({ httpMethod: "POST" })
+  async create(
+    params: AssistantCreateParams,
+    { user }: Context
+  ): Promise<number> {
+    if (!user) {
+      throw new BadRequestException("로그인이 필요합니다.");
+    }
+
+    const assistant = await openai.beta.assistants.create({
+      model: "gpt-3.5-turbo",
+      ...params,
+    });
+
+    const [id] = await this.save([
+      {
+        user_id: user.id,
+        uid: assistant.id,
+      },
+    ]);
+
+    return id;
   }
 }
 

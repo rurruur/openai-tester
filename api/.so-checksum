@@ -1,7 +1,7 @@
 [
   {
     "path": "/dist/application/assistant/assistant.model.js",
-    "checksum": "22dda7d90eb65007ed554cf74468e84a5ce80896"
+    "checksum": "3aad348a680d28eabfc62188b9bcbae09fd7443a"
   },
   {
     "path": "/dist/application/chat/chat.model.js",
@@ -21,7 +21,7 @@
   },
   {
     "path": "/src/application/assistant/assistant.types.ts",
-    "checksum": "59f9c78a05c8dd9ff499f0c0852fcf523c94baea"
+    "checksum": "fcdb7e5ea18c2cebb6a6498d0b05f5fa0101c4ff"
   },
   {
     "path": "/src/application/chat/chat.entity.json",

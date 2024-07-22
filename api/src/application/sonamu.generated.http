@@ -36,6 +36,20 @@ Content-Type: application/json
 
 ###
 
+POST {{baseUrl}}/api/assistant/create
+Content-Type: application/json
+
+{
+  "params": {
+    "name": "NAME",
+    "description": "DESCRIPTION",
+    "instructions": "INSTRUCTIONS"
+  }
+}
+
+
+###
+
 GET {{baseUrl}}/api/chat/findById
 	?subset=A
 	&id=0

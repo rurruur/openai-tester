@@ -13,7 +13,11 @@ import {
   AssistantSubsetKey,
   AssistantSubsetMapping,
 } from "../sonamu.generated";
-import { AssistantListParams, AssistantSaveParams } from "./assistant.types";
+import {
+  AssistantListParams,
+  AssistantSaveParams,
+  AssistantCreateParams,
+} from "./assistant.types";
 
 export namespace AssistantService {
   export function useAssistant<T extends AssistantSubsetKey>(
@@ -73,6 +77,14 @@ export namespace AssistantService {
       method: "POST",
       url: `/api/assistant/del`,
       data: { ids },
+    });
+  }
+
+  export async function create(params: AssistantCreateParams): Promise<number> {
+    return fetch({
+      method: "POST",
+      url: `/api/assistant/create`,
+      data: { params },
     });
   }
 }
