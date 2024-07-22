@@ -21,12 +21,14 @@ import { ThreadService } from "src/services/thread/thread.service";
 import { Thread } from "src/services/thread/thread.types";
 
 export default function PublicIndexPage() {
+  const navigate = useNavigate();
+
   const [messages, setMessages] = useState<Message[]>([]);
   const [content, setContent] = useState<string>("");
   const [selectedAsst, setSelectedAsst] = useState<Assistant | null>(null);
   const [selectedThread, setSelectedThread] = useState<Thread | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const navigate = useNavigate();
   const { data: user, isLoading: isUserLoading } = UserService.useMe();
   const { data: assistants, isLoading: isAssistantLoading } =
     AssistantService.useList();
@@ -37,13 +39,28 @@ export default function PublicIndexPage() {
   };
 
   const handleFormSubmit = () => {
+    if (!selectedThread) {
+      alert("Please select a thread.");
+      return;
+    }
+    if (!selectedAsst) {
+      alert("Please select an assistant.");
+      return;
+    }
+
     if (content.trim() !== "") {
-      ChatService.chat({ content })
+      setLoading(true);
+      ChatService.chat({
+        content,
+        threadId: selectedThread.id,
+        assistantId: selectedAsst.id,
+      })
         .then((res) => {
           setContent("");
           setMessages(res);
         })
-        .catch(defaultCatch);
+        .catch(defaultCatch)
+        .finally(() => setLoading(false));
     }
   };
 
@@ -131,6 +148,7 @@ export default function PublicIndexPage() {
                   labelPosition="left"
                   icon="send"
                   primary
+                  loading={loading || isThreadLoading || isAssistantLoading}
                 />
               </Form>
             </>
