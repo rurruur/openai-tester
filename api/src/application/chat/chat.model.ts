@@ -183,10 +183,11 @@ class ChatModelClass extends BaseModelClass {
       throw new BadRequestException("로그인이 필요합니다.");
     }
 
-    const { content } = params;
+    const { content, threadId, assistantId } = params;
 
     const thread = await ThreadModel.findOne("A", {
       user_id: user.id,
+      uid: threadId,
     });
     if (!thread) {
       throw new NotFoundException("Thread가 존재하지 않습니다.");
@@ -200,7 +201,7 @@ class ChatModelClass extends BaseModelClass {
 
     // 스레드 실행
     let run = await openai.beta.threads.runs.create(thread.uid, {
-      assistant_id: "asst_MY92V7VcjSZTUeRkyAhy3FeX",
+      assistant_id: assistantId,
     });
     await new Promise((resolve) => {
       const interval = setInterval(async () => {

@@ -5,7 +5,7 @@
   },
   {
     "path": "/dist/application/chat/chat.model.js",
-    "checksum": "638e0393e1fb5788bd733a7bfac902d3981bf742"
+    "checksum": "f8983c323a9f608f6c0cd3951a6d58e04a6970b3"
   },
   {
     "path": "/dist/application/thread/thread.model.js",
@@ -29,7 +29,7 @@
   },
   {
     "path": "/src/application/chat/chat.types.ts",
-    "checksum": "80341b2d9f7c30a24e8b9d381ed006bb6c628ed8"
+    "checksum": "6c4aff63fad46174b116d0b78553511cb4c3991a"
   },
   {
     "path": "/src/application/sonamu.generated.ts",
